@@ -15,5 +15,5 @@ def generator(config_data_file_path, template_file_path):
     template = env.get_template(os.path.basename(template_file_path))
 
 
-    # Render the template with data and print the output
-    print(template.render(config_data))
+    # Render the template with data and stream it to an output file
+    template.stream(config_data).dump('catalog.yml')
