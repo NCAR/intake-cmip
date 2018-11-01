@@ -1,2 +1,3 @@
 # cmip5-intake-datasets
-CMIP5 data sets catalogs, data packages
+
+These may take the form of catalog files (YAML) or directories on `Glade` which can be built into conda packages.
