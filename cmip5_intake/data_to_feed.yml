@@ -1,0 +1,62 @@
+module: intake_xarray
+driver: netcdf
+extra_args:
+  engine: netcdf4
+  chunks: {'time': 1}
+root_path: /glade/collections/cmip/cmip5/
+activity: output1
+institution: NCAR
+model: CCSM4
+experiment: rcp26
+frequency: mon
+modeling_realm: atmos 
+ensemble_member: r1i1p1
+mip_table: Amon
+variables:
+  - prc
+  - tro3
+  - rtmt
+  - hfls
+  - hur
+  - rlds
+  - prw
+  - hus
+  - clwvi
+  - prsn
+  - va
+  - tauu
+  - rlutcs
+  - tas
+  - clt
+  - tauv
+  - ci
+  - clivi
+  - cl
+  - ua
+  - hfss
+  - ps
+  - wap
+  - rsds
+  - sci
+  - rlus
+  - rsutcs
+  - rsdt
+  - tasmin
+  - ta
+  - rlut
+  - hurs
+  - rldscs
+  - psl
+  - pr
+  - tasmax
+  - clw
+  - huss
+  - mc
+  - zg
+  - evspsbl
+  - rsuscs
+  - rsus
+  - cli
+  - rsut
+  - ts
+  - rsdscs
