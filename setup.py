@@ -30,7 +30,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     entry_points="""
       [console_scripts]
-      cat-gen=cmip5_intake.generate_catalog:generator
+      cmip5-intake-cat-gen=cmip5_intake.generate_catalog:generator
       """,
     zip_safe=False,
 )
