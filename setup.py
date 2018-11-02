@@ -19,7 +19,6 @@ setup(
     license="https://github.com/NCAR/cmip5-intake-datasets/blob/master/LICENSE.rst",
     long_description=readme,
     long_description_content_type="text/markdown",
-    include_package_data=True,
     keywords=["cmip5", "intake"],
     name="cmip5-intake",
     packages=find_packages(),
