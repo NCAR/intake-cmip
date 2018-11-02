@@ -5,10 +5,19 @@ plugins:
 sources:
   {% for variable in variables%}
   {{ variable }}_{{ model }}_{{ experiment }}_{{ ensemble_member}}:
+    description: {{ description }}
     driver: {{ driver }}
     args: 
       urlpath: "{{ root_path }}/{{ activity }}/{{ institution }}/{{ model }}/{{ experiment }}/{{ frequency }}/{{ modeling_realm }}/{{ mip_table }}/{{ ensemble_member }}/latest/{{ variable }}/{{ variable }}_{{ mip_table }}_{{ model }}*.nc"
       {% for key, item in extra_args.items() %}
       {{ key }}: {{ item }}
       {% endfor %}
+    metadata:
+      institution: {{ institution }}
+      model: {{ model }}
+      experiment: {{ experiment }}
+      frequency: {{ frequency }}
+      modeling_realm: {{ modeling_realm }}
+      mip_table: {{ mip_table }}
+      ensemble_member: {{ ensemble_member }}
   {% endfor %}
