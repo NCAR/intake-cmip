@@ -69,7 +69,7 @@ plugins:
 sources:
   {% for variable in variables%}
   {{ variable }}_{{ model }}_{{ experiment }}_{{ ensemble_member}}:
-    description: {{ description }}
+    description: Monthly - {{ variable }} data from the CMIP5
     driver: {{ driver }}
     args: 
       urlpath: "{{ root_path }}/{{ activity }}/{{ institution }}/{{ model }}/{{ experiment }}/{{ frequency }}/{{ modeling_realm }}/{{ mip_table }}/{{ ensemble_member }}/latest/{{ variable }}/{{ variable }}_{{ mip_table }}_{{ model }}*.nc"
@@ -88,78 +88,66 @@ sources:
   ```
 
 
+  ## Accessing the data 
 
-### Step 3: Generate catalog YAML file using `cmip-intake-catp-gen` command
+```python
+In [1]: import intake
 
-    $ cmip5-intake-cat-gen --config-data-file config_data.yaml --template-file template.yaml
+In [2]: catalog = '/glade/work/abanihi/devel/pangeo/cmip5-intake-datasets/catalog.yaml'
 
-The output of this command, is a YAML file `catalog.yaml` that contains:
+In [3]: cat = intake.Catalog(catalog)
 
-```yaml
-plugins:
-  source:
-    - module: intake_xarray
+In [4]: ta_dset = cat.ta_CCSM4_rcp26_r1i1p1.to_dask()
 
-sources:
-  tas_CCSM4_rcp26_r1i1p1:
-    description: 
-    driver: netcdf
-    args: 
-      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/tas/tas_Amon_CCSM4*.nc"
-      engine: netcdf4
-      chunks: {'time': 1}
-    metadata:
-      institution: NCAR
-      model: CCSM4
-      experiment: rcp26
-      frequency: mon
-      modeling_realm: atmos
-      mip_table: Amon
-      ensemble_member: r1i1p1
-  ci_CCSM4_rcp26_r1i1p1:
-    description: 
-    driver: netcdf
-    args: 
-      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/ci/ci_Amon_CCSM4*.nc"
-      engine: netcdf4
-      chunks: {'time': 1}
-    metadata:
-      institution: NCAR
-      model: CCSM4
-      experiment: rcp26
-      frequency: mon
-      modeling_realm: atmos
-      mip_table: Amon
-      ensemble_member: r1i1p1
-  tasmin_CCSM4_rcp26_r1i1p1:
-    description: 
-    driver: netcdf
-    args: 
-      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/tasmin/tasmin_Amon_CCSM4*.nc"
-      engine: netcdf4
-      chunks: {'time': 1}
-    metadata:
-      institution: NCAR
-      model: CCSM4
-      experiment: rcp26
-      frequency: mon
-      modeling_realm: atmos
-      mip_table: Amon
-      ensemble_member: r1i1p1
-  ta_CCSM4_rcp26_r1i1p1:
-    description: 
-    driver: netcdf
-    args: 
-      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/ta/ta_Amon_CCSM4*.nc"
-      engine: netcdf4
-      chunks: {'time': 1}
-    metadata:
-      institution: NCAR
-      model: CCSM4
-      experiment: rcp26
-      frequency: mon
-      modeling_realm: atmos
-      mip_table: Amon
-      ensemble_member: r1i1p1
+In [5]: ta_dset
+Out[5]:
+<xarray.Dataset>
+Dimensions:    (bnds: 2, lat: 382, lon: 288, plev: 17, time: 3540)
+Coordinates:
+  * lat        (lat) float64 -90.0 -89.06 -89.06 -88.12 ... 89.06 89.06 90.0
+  * plev       (plev) float64 1e+05 9.25e+04 8.5e+04 7e+04 ... 3e+03 2e+03 1e+03
+  * lon        (lon) float64 0.0 1.25 2.5 3.75 5.0 ... 355.0 356.2 357.5 358.8
+  * time       (time) object 2006-01-16T12:00:00 ... 2300-12-16 12:00:00
+Dimensions without coordinates: bnds
+Data variables:
+    time_bnds  (time, bnds) float64 dask.array<shape=(3540, 2), chunksize=(1, 2)>
+    lat_bnds   (time, lat, bnds) float64 dask.array<shape=(3540, 382, 2), chunksize=(480, 382, 2)>
+    lon_bnds   (time, lon, bnds) float64 dask.array<shape=(3540, 288, 2), chunksize=(480, 288, 2)>
+    ta         (time, plev, lat, lon) float32 dask.array<shape=(3540, 17, 382, 288), chunksize=(1, 17, 382, 288)>
+Attributes:
+    institution:                  NCAR (National Center for Atmospheric Resea...
+    institute_id:                 NCAR
+    experiment_id:                rcp26
+    source:                       CCSM4
+    model_id:                     CCSM4
+    forcing:                      Sl GHG Vl SS Ds SA BC MD OC Oz AA
+    parent_experiment_id:         historical
+    parent_experiment_rip:        r1i1p1
+    branch_time:                  2005.0
+    contact:                      cesm_data@ucar.edu
+    references:                   Gent P. R., et.al. 2011: The Community Clim...
+    initialization_method:        1
+    physics_version:              1
+    tracking_id:                  01046a60-720d-4da8-a38b-0720d9d6d665
+    acknowledgements:             The CESM project is supported by the Nation...
+    cesm_casename:                b40.rcp2_6.1deg.001
+    cesm_repotag:                 ccsm4_0_beta49
+    cesm_compset:                 BRCP26CN
+    resolution:                   f09_g16 (0.9x1.25_gx1v6)
+    forcing_note:                 Additional information on the external forc...
+    processed_by:                 strandwg on copper.cgd.ucar.edu at 20111105...
+    processing_code_information:  Last Changed Rev: 443 Last Changed Date: 20...
+    product:                      output
+    experiment:                   RCP2.6
+    frequency:                    mon
+    creation_date:                2011-11-05T17:37:02Z
+    history:                      2011-11-05T17:37:02Z CMOR rewrote data to c...
+    Conventions:                  CF-1.4
+    project_id:                   CMIP5
+    table_id:                     Table Amon (26 July 2011) 976b7fd1d9e1be31d...
+    title:                        CCSM4 model output prepared for CMIP5 RCP2.6
+    parent_experiment:            historical
+    modeling_realm:               atmos
+    realization:                  1
+    cmor_version:                 2.7.1
 ```
-
