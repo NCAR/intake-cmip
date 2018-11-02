@@ -30,7 +30,7 @@ Options:
 
 Examples of configuration, and template files are provided below:
 
-### Step 1: Create a configuration file `config_data.yaml`
+### Step 1: Create a configuration file: `config_data.yaml`
 
 ```yaml
 module: intake_xarray
@@ -59,7 +59,7 @@ variables:
   ```
 
 
-### Step 2: Create a Template file `template.yaml`
+### Step 2: Create a template file: `template.yaml`
 
 ```yaml
 plugins:
@@ -87,8 +87,141 @@ sources:
   {% endfor %}
   ```
 
+### Step 3: Generate catalog YAML file using `cmip5-intake-cat-gen` command
 
-  ## Accessing the data 
+     $ cmip5-intake-cat-gen --config-data-file config_data.yaml --template-file template.yaml
+
+ The output of this command, is a YAML file `catalog.yaml` that contains:
+
+```yaml
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+  tas_CCSM4_rcp26_r1i1p1:
+    description: Monthly - tas data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/tas/tas_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+  ci_CCSM4_rcp26_r1i1p1:
+    description: Monthly - ci data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/ci/ci_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+  tasmin_CCSM4_rcp26_r1i1p1:
+    description: Monthly - tasmin data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/tasmin/tasmin_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+  ta_CCSM4_rcp26_r1i1p1:
+    description: Monthly - ta data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/ta/ta_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+  psl_CCSM4_rcp26_r1i1p1:
+    description: Monthly - psl data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/psl/psl_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+  pr_CCSM4_rcp26_r1i1p1:
+    description: Monthly - pr data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/pr/pr_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+  tasmax_CCSM4_rcp26_r1i1p1:
+    description: Monthly - tasmax data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/tasmax/tasmax_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+  ts_CCSM4_rcp26_r1i1p1:
+    description: Monthly - ts data from the CMIP5
+    driver: netcdf
+    args: 
+      urlpath: "/glade/collections/cmip/cmip5//output1/NCAR/CCSM4/rcp26/mon/atmos/Amon/r1i1p1/latest/ts/ts_Amon_CCSM4*.nc"
+      engine: netcdf4
+      chunks: {'time': 1}
+    metadata:
+      institution: NCAR
+      model: CCSM4
+      experiment: rcp26
+      frequency: mon
+      modeling_realm: atmos
+      mip_table: Amon
+      ensemble_member: r1i1p1
+```
+
+## Accessing the data 
 
 ```python
 In [1]: import intake
