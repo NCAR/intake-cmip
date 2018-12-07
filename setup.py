@@ -9,12 +9,12 @@ import versioneer
 with open("README.md", encoding="utf-8") as readme_file:
     readme = readme_file.read()
 
-requirements = open('requirements.txt').read().strip().split('\n')
+requirements = open("requirements.txt").read().strip().split("\n")
 
 setup(
     maintainer="Anderson Banihirwe",
     maintainer_email="abanihi@ucar.edu",
-    description='An intake plugin for loading CMIP5 data sets',
+    description="An intake plugin for loading CMIP5 data sets",
     install_requires=requirements,
     license="https://github.com/NCAR/intake-cmip5/blob/master/LICENSE.rst",
     long_description=readme,
@@ -22,8 +22,8 @@ setup(
     keywords=["cmip5", "intake"],
     name="intake-cmip5",
     packages=find_packages(),
-    py_modules=['intake_cmip5'],
-    package_data={'': ['*.yml', '*.yaml']},
+    py_modules=["intake_cmip5"],
+    package_data={"": ["*.yml", "*.yaml", "*.csv"]},
     include_package_data=True,
     url="https://github.com/NCAR/intake-cmip5",
     version=versioneer.get_version(),
