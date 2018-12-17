@@ -11,7 +11,7 @@ jobs:
       
     steps:
     
-      - run: apk add --no-cache build-base ca-certificates git openssh bash
+      - run: apk add --no-cache build-base ca-certificates git openssh bash curl
       
       # Get our data and merge with upstream
       - checkout

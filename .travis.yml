@@ -5,7 +5,6 @@ language: python
 env:
 
   matrix:
-  - PYTHON=3.6
   - PYTHON=3.7
 
 before_install:
@@ -15,7 +14,7 @@ install:
   - ./ci/install-travis.sh
 script:
   - echo "script start"
-  - source activate cmip5-test
+  - source activate intake-cmip5-dev
   - py.test --junitxml=test-reports/junit.xml --cov=./
 
 after_success:
