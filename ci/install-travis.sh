@@ -17,7 +17,6 @@ conda config --set always_yes true --set changeps1 false || exit 1
 
 echo
 echo "[install dependencies]"
-conda create -q -n intake-cmip5-dev python=${PYTHON}
 conda env update -f environment-dev.yml
 source activate intake-cmip5-dev
 conda list
