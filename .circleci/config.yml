@@ -21,7 +21,7 @@ jobs:
           keys:
             - conda-pkgs
             
-      - run: ./ci/install-travis.sh
+      - run: ./ci/install-circleci.sh
       
       # Cache some files for a speedup in subsequent builds
       - save_cache:
@@ -36,7 +36,7 @@ jobs:
 
       - run:
            name: Coverage
-           command: curl -s https://codecov.io/bash > .codecov && chmod +x .codecov && ./.codecov
+           command: source activate intake-cmip5-dev && curl -s https://codecov.io/bash > .codecov && chmod +x .codecov && ./.codecov
            when: on_success
            
      
