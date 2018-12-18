@@ -9,14 +9,14 @@ import versioneer
 with open("README.md", encoding="utf-8") as readme_file:
     readme = readme_file.read()
 
-requirements = ["intake"]
+requirements = ["intake", "intake-xarray"]
 
 setup(
     maintainer="Anderson Banihirwe",
     maintainer_email="abanihi@ucar.edu",
     description="An intake plugin for loading CMIP5 data sets",
     install_requires=requirements,
-    license="https://github.com/NCAR/intake-cmip5/blob/master/LICENSE.rst",
+    license="Apache License 2.0",
     long_description=readme,
     long_description_content_type="text/markdown",
     keywords=["cmip5", "intake"],
