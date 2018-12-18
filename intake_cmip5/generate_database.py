@@ -103,7 +103,7 @@ def parse_directory(directory):
                 entry["file_basename"] = f
                 entry["file_fullpath"] = os.path.join(root, f)
                 fs.append(entry)
-            except:
+            except BaseException:
                 continue
         if fs:
             temp_df = pd.DataFrame(fs)
