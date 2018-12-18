@@ -16,6 +16,7 @@ dependencies:
   - pytest
   - coverage
   - pytest-cov
+  - codecov
   - sphinx
   - sphinx_rtd_theme
   - recommonmark 
