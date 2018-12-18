@@ -5,9 +5,9 @@
 
 from setuptools import setup, find_packages
 import versioneer
+from os.path import exists
 
-with open("README.md", encoding="utf-8") as readme_file:
-    readme = readme_file.read()
+readme = open('README.rst').read() if exists('README.rst') else ''
 
 requirements = ["intake", "intake-xarray"]
 
@@ -23,7 +23,7 @@ setup(
     name="intake-cmip5",
     packages=find_packages(),
     py_modules=["intake_cmip5"],
-    package_data={"": ["*.yml", "*.yaml", "*.csv"]},
+    #package_data={"": ["*.yml", "*.yaml", "*.csv"]},
     include_package_data=True,
     url="https://github.com/NCAR/intake-cmip5",
     version=versioneer.get_version(),

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+from ._version import get_versions
 import pandas as pd
 import os
 import numpy as np
@@ -5,15 +7,65 @@ import xarray as xr
 import intake_xarray.base
 from collections import OrderedDict
 
+__version__ = get_versions()["version"]
+del get_versions
 
 class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
+    """ Read CMIP5 data sets into xarray datasets
+
+    """
     container = 'xarray'
-    version = '0.0.1'
+    version = __version__
     partition_access = True
     name = 'cmip5'
 
     def __init__(self, database_file, model, experiment, frequency, realm, ensemble,
                  varname, metadata=None):
+        """
+        
+        Parameters
+        ----------
+
+        database_file : string or file handle
+             File path or object for cmip5 database
+        model : str 
+              identifies the model used (e.g. HADCM3, HADCM3-233).
+        experiment : str
+             identifies either the experiment or both the experiment family and a specific type 
+             within that experiment family.
+        frequency : str
+            indicates the interval between individual time-samples in the atomic dataset. 
+            For CMIP5, the following are the only options:
+
+            - yr
+            - mon
+            - day
+            - 6hr
+            - 3hr
+            - subhr
+            - monClim
+            - fx
+
+        realm : str
+             indicates which high level modeling component is of particular relevance for 
+             the dataset. For CMIP5, permitted values are:
+
+             - atmos
+             - ocean
+             - land
+             - landIce
+             - seaIce
+             - aerosol
+             - atmosChem
+            - ocnBgchem
+        ensemble : str 
+            (r<N>i<M>p<L>): This triad of integers (N, M, L), formatted as (e.g., “r3i1p21”) 
+            distinguishes among closely related simulations by a single model. 
+            All three are required even if only a single simulation is performed.
+        varname : str 
+        
+        """
+
         # store important kwargs
         self.database = self._read_database(database_file)
         self.model = model
