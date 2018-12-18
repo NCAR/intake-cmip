@@ -22,6 +22,13 @@ import sys
 sys.path.insert(0, os.path.abspath(".."))
 
 import intake_cmip5
+import recommonmark
+from recommonmark.parser import CommonMarkParser
+from recommonmark.transform import AutoStructify
+
+source_parsers = {
+    '.md': CommonMarkParser
+}
 
 # -- General configuration ---------------------------------------------
 
@@ -41,6 +48,7 @@ extensions = [
     "IPython.sphinxext.ipython_console_highlighting",
     "IPython.sphinxext.ipython_directive",
     "sphinx_copybutton",
+    "recommonmark",
 ]
 
 numpydoc_show_class_members = False
@@ -51,7 +59,7 @@ templates_path = ["_templates"]
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+source_suffix = [".rst", ".md"]
 
 # The master toctree document.
 master_doc = "index"
@@ -111,7 +119,7 @@ html_static_path = ["_static"]
 # -- Options for HTMLHelp output ---------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "intake_cmip5doc"
+htmlhelp_basename = "intake-cmip5doc"
 
 
 # -- Options for LaTeX output ------------------------------------------
@@ -137,7 +145,7 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "intake_cmip5.tex",
+        "intake-cmip5.tex",
         u"intake-cmip5 Documentation",
         u"Anderson Banihirwe",
         "manual",
@@ -170,14 +178,22 @@ texinfo_documents = [
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {
-    "python": ("https://docs.python.org/", None),
-    "pandas": ("http://pandas-docs.github.io/pandas-docs-travis/", None),
-}
+# intersphinx_mapping = {}
 
 
 ipython_execlines = [
     "import pandas as pd",
     "import xarray as xr",
-    "import intake",,
+    "import intake",
 ]
+
+github_doc_root = 'https://github.com/NCAR/intake-cmip5/tree/devel/docs/source/'
+# app setup hook
+def setup(app):
+    app.add_config_value('recommonmark_config', {
+        'url_resolver': lambda url: github_doc_root + url,
+        'auto_toc_tree_section': 'Contents',
+        'enable_eval_rst': True,
+        'enable_auto_doc_ref': True,
+    }, True)
+    app.add_transform(AutoStructify)
