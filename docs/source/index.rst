@@ -5,6 +5,7 @@
    :caption: Contents:
 
    notebooks/overview.ipynb
+   api
 
 Indices and tables
 ==================

@@ -4,12 +4,11 @@ import xarray as xr
 import pytest
 import shutil
 import tempfile
-from intake_cmip5.generate_database import create_CMIP5Database
+from intake_cmip5.database import create_cmip5_database
 from intake_cmip5.source import CMIP5DataSource
 from pandas.testing import assert_frame_equal
 
-HOME = os.environ["HOME"]
-# CMIP5_TEST_DIR = f"{HOME}/cmip5_test"
+
 CMIP5_TEST_DIR = tempfile.mkdtemp()
 DB_DIR = tempfile.mkdtemp()
 file_names = [
@@ -50,7 +49,7 @@ def teardown():
 
 def test_generate_database():
     setup()
-    df_res = create_CMIP5Database(CMIP5_TEST_DIR, DB_DIR)
+    df_res = create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
     assert isinstance(df_res, pd.DataFrame)
 
     df_exp = pd.read_csv(f"{DB_DIR}/clean_cmip5_database.csv")
@@ -66,7 +65,7 @@ def test_generate_database():
 
 def test_source():
     setup()
-    create_CMIP5Database(CMIP5_TEST_DIR, DB_DIR)
+    create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
     db_file = f"{DB_DIR}/clean_cmip5_database.csv"
     source = CMIP5DataSource(database_file=db_file, model="CanESM2", experiment="rcp85",
                              frequency="mon", realm="atmos", ensemble="r2i1p1",
