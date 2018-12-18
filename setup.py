@@ -5,9 +5,9 @@
 
 from setuptools import setup, find_packages
 import versioneer
+from os.path import exists
 
-with open("README.md", encoding="utf-8") as readme_file:
-    readme = readme_file.read()
+readme = open('README.rst').read() if exists('README.rst') else ''
 
 requirements = ["intake", "intake-xarray"]
 

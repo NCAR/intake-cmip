@@ -22,13 +22,6 @@ import sys
 sys.path.insert(0, os.path.abspath("../.."))
 
 import intake_cmip5
-import recommonmark
-from recommonmark.parser import CommonMarkParser
-from recommonmark.transform import AutoStructify
-
-source_parsers = {
-    '.md': CommonMarkParser
-}
 
 # -- General configuration ---------------------------------------------
 
@@ -44,11 +37,12 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "sphinx.ext.extlinks",
-    #"numpydoc",
-    #"IPython.sphinxext.ipython_console_highlighting",
-    #"IPython.sphinxext.ipython_directive",
-    "sphinx_copybutton",
-    "recommonmark",
+    "numpydoc",
+    "IPython.sphinxext.ipython_console_highlighting",
+    "IPython.sphinxext.ipython_directive",
+    # "sphinx_copybutton",
+    # "recommonmark",
+    "nbsphinx",
 ]
 
 numpydoc_show_class_members = False
@@ -186,14 +180,3 @@ ipython_execlines = [
     "import xarray as xr",
     "import intake",
 ]
-
-github_doc_root = 'https://github.com/NCAR/intake-cmip5/tree/devel/docs/source/'
-# app setup hook
-def setup(app):
-    app.add_config_value('recommonmark_config', {
-        'url_resolver': lambda url: github_doc_root + url,
-        'auto_toc_tree_section': 'Contents',
-        'enable_eval_rst': True,
-        'enable_auto_doc_ref': True,
-    }, True)
-    app.add_transform(AutoStructify)

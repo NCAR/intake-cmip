@@ -17,9 +17,12 @@ dependencies:
   - coverage
   - pytest-cov
   - codecov
-  - sphinx
+  - sphinx>=1.6
   - sphinx_rtd_theme
   - recommonmark 
   - numpydoc
+  - nbsphinx
+  - pandoc
+  - ipykernel
   - pip:
     - sphinx_copybutton
