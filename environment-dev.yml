@@ -1,0 +1,24 @@
+name: intake-cmip5-dev
+channels:
+  - conda-forge
+  - intake
+  - defaults
+dependencies:
+  - python=3.6
+  - numpy
+  - intake
+  - intake-xarray
+  - xarray
+  - netcdf4
+  - dask
+  - distributed
+  - autopep8
+  - pytest
+  - coverage
+  - pytest-cov
+  - codecov
+  - sphinx
+  - sphinx_rtd_theme
+  - recommonmark 
+  - pip:
+    - sphinx_copybutton
