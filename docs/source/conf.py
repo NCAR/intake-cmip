@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.abspath("../.."))
 
 import intake_cmip5
 import recommonmark
@@ -44,9 +44,9 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "sphinx.ext.extlinks",
-    "numpydoc",
-    "IPython.sphinxext.ipython_console_highlighting",
-    "IPython.sphinxext.ipython_directive",
+    #"numpydoc",
+    #"IPython.sphinxext.ipython_console_highlighting",
+    #"IPython.sphinxext.ipython_directive",
     "sphinx_copybutton",
     "recommonmark",
 ]
