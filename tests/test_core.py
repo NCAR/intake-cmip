@@ -4,11 +4,12 @@ import xarray as xr
 import pytest
 import shutil
 import tempfile
-from intake_cmip5.generate_database import create_CMIP5Database
+from intake_cmip5.database import create_cmip5_database
+from intake_cmip5.source import CMIP5DataSource
 from pandas.testing import assert_frame_equal
 
-HOME = os.environ["HOME"]
-CMIP5_TEST_DIR = f"{HOME}/cmip5_test"
+
+CMIP5_TEST_DIR = tempfile.mkdtemp()
 DB_DIR = tempfile.mkdtemp()
 file_names = [
     "Tair_Amon_CanESM2_rcp85_r2i1p1_200601-203512.nc",
@@ -37,20 +38,18 @@ def setup():
 def teardown():
     try:
         shutil.rmtree(CMIP5_TEST_DIR)
-    except:
+    except BaseException:
         pass
 
     try:
         shutil.rmtree(DB_DIR)
-    except:
+    except BaseException:
         pass
 
 
-setup()
-
-
 def test_generate_database():
-    df_res = create_CMIP5Database(CMIP5_TEST_DIR, DB_DIR)
+    setup()
+    df_res = create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
     assert isinstance(df_res, pd.DataFrame)
 
     df_exp = pd.read_csv(f"{DB_DIR}/clean_cmip5_database.csv")
@@ -61,6 +60,18 @@ def test_generate_database():
     res = set(df_exp.file_basename.unique().tolist())
 
     assert exp == res
+    teardown()
 
 
-teardown()
+def test_source():
+    setup()
+    create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
+    db_file = f"{DB_DIR}/clean_cmip5_database.csv"
+    source = CMIP5DataSource(database_file=db_file, model="CanESM2", experiment="rcp85",
+                             frequency="mon", realm="atmos", ensemble="r2i1p1",
+                             varname="Tair")
+    assert isinstance(source, CMIP5DataSource)
+
+    ds = source.to_dask()
+    assert isinstance(ds, xr.Dataset)
+    teardown()

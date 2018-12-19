@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+
+#!/usr/bin/env python
+"""Contains functions to generate CMIP5 data sets database."""
 import os
 import pandas as pd
 from dask import delayed
@@ -65,7 +67,7 @@ def _get_entry(directory):
 
 
 @delayed
-def parse_directory(directory):
+def _parse_directory(directory):
     exclude = set(["files", "latests"])  # directories to exclude
 
     columns = [
@@ -103,7 +105,7 @@ def parse_directory(directory):
                 entry["file_basename"] = f
                 entry["file_fullpath"] = os.path.join(root, f)
                 fs.append(entry)
-            except:
+            except BaseException:
                 continue
         if fs:
             temp_df = pd.DataFrame(fs)
@@ -144,12 +146,35 @@ def _persist_database(df, path):
     return sorted_df
 
 
-def create_CMIP5Database(root_dir=None, db_path=None):
+def create_cmip5_database(root_dir=None, db_path=None):
+    """Generates database for CMIP5 data sets
+    
+    Parameters
+    ----------
+
+    root_dir : string or file handle, default None
+               File path or object
+
+    db_path : string or file handle, default None
+              File path or object, 
+              # TODO: if None is provided the result is returned as a string.
+    
+    Raises
+    ------
+
+    NotADirectoryError
+            if the `root_dir` does not exist
+    
+    Returns
+    -------
+        pd.DataFrame
+    """
+
     if not os.path.exists(root_dir):
         raise NotADirectoryError(f"{root_dir} does not exist")
 
     dirs = _parse_dirs(root_dir)
-    dfs = [parse_directory(directory) for directory in dirs]
+    dfs = [_parse_directory(directory) for directory in dirs]
     df = dd.from_delayed(dfs).compute()
     df = _persist_database(df, db_path)
     return df
