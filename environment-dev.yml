@@ -13,6 +13,9 @@ dependencies:
   - dask
   - distributed
   - autopep8
+  - flake8
+  - black
+  - isort
   - pytest
   - coverage
   - pytest-cov
