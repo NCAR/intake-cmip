@@ -4,8 +4,8 @@ import xarray as xr
 import pytest
 import shutil
 import tempfile
-from intake_cmip5.database import create_cmip5_database
-from intake_cmip5.source import CMIP5DataSource
+from intake_cmip.database import create_cmip5_database
+from intake_cmip.cmip5 import CMIP5DataSource
 from pandas.testing import assert_frame_equal
 
 
