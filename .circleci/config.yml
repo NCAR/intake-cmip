@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 jobs:
 
@@ -32,17 +32,18 @@ jobs:
       # Run tests
       - run:
            name: Running Tests 
-           command: source activate intake-cmip5-dev && py.test --junitxml=test-reports/junit.xml --cov=./
+           command: source activate intake-cmip-dev && py.test --junitxml=test-reports/junit.xml --cov=./
 
       - run:
            name: Coverage
-           command: source activate intake-cmip5-dev && codecov
+           command: source activate intake-cmip-dev && codecov
            when: on_success
            
      
 
 # Tell CircleCI to use this workflow
 workflows:
+  version: 2
   default:
     jobs:
       - build_test
