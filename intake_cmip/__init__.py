@@ -7,4 +7,4 @@ from .cmip5 import CMIP5DataSource
 __version__ = get_versions()["version"]
 del get_versions
 
-__all__ = ["intake_cmip", "database", "CMIP5DataSource",]
+__all__ = ["intake_cmip", "database", "CMIP5DataSource"]
