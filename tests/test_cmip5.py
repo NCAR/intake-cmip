@@ -1,13 +1,14 @@
 import os
-import pandas as pd
-import xarray as xr
-import pytest
 import shutil
 import tempfile
-from intake_cmip5.database import create_cmip5_database
-from intake_cmip5.source import CMIP5DataSource
+
+import pandas as pd
+import pytest
+import xarray as xr
 from pandas.testing import assert_frame_equal
 
+from intake_cmip.cmip5 import CMIP5DataSource
+from intake_cmip.database import create_cmip5_database
 
 CMIP5_TEST_DIR = tempfile.mkdtemp()
 DB_DIR = tempfile.mkdtemp()
@@ -67,9 +68,15 @@ def test_source():
     setup()
     create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
     db_file = f"{DB_DIR}/clean_cmip5_database.csv"
-    source = CMIP5DataSource(database_file=db_file, model="CanESM2", experiment="rcp85",
-                             frequency="mon", realm="atmos", ensemble="r2i1p1",
-                             varname="Tair")
+    source = CMIP5DataSource(
+        database_file=db_file,
+        model="CanESM2",
+        experiment="rcp85",
+        frequency="mon",
+        realm="atmos",
+        ensemble="r2i1p1",
+        varname="Tair",
+    )
     assert isinstance(source, CMIP5DataSource)
 
     ds = source.to_dask()

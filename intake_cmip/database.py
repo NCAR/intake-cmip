@@ -1,15 +1,14 @@
-
 #!/usr/bin/env python
 """Contains functions to generate CMIP5 data sets database."""
+import functools
 import os
+import re
+import shutil
+from pathlib import Path
+
+import dask.dataframe as dd
 import pandas as pd
 from dask import delayed
-import re
-from pathlib import Path
-import functools
-import dask.dataframe as dd
-import shutil
-
 
 HOME = os.environ["HOME"]
 INTAKE_CMIP5_DIR = f"{HOME}/.intake_cmip5"
@@ -148,7 +147,7 @@ def _persist_database(df, path):
 
 def create_cmip5_database(root_dir=None, db_path=None):
     """Generates database for CMIP5 data sets
-    
+
     Parameters
     ----------
 
@@ -156,15 +155,15 @@ def create_cmip5_database(root_dir=None, db_path=None):
                File path or object
 
     db_path : string or file handle, default None
-              File path or object, 
+              File path or object,
               # TODO: if None is provided the result is returned as a string.
-    
+
     Raises
     ------
 
     NotADirectoryError
             if the `root_dir` does not exist
-    
+
     Returns
     -------
         pd.DataFrame
