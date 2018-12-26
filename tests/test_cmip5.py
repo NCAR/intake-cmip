@@ -53,7 +53,7 @@ def test_generate_database():
     df_res = create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
     assert isinstance(df_res, pd.DataFrame)
 
-    df_exp = pd.read_csv(f"{DB_DIR}/clean_cmip5_database.csv")
+    df_exp = pd.read_csv(f"{DB_DIR}/cmip5.csv")
 
     assert_frame_equal(df_res, df_exp)
 
@@ -67,7 +67,7 @@ def test_generate_database():
 def test_source():
     setup()
     create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
-    db_file = f"{DB_DIR}/clean_cmip5_database.csv"
+    db_file = f"{DB_DIR}/cmip5.csv"
     source = CMIP5DataSource(
         database_file=db_file,
         model="CanESM2",

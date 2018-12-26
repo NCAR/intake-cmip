@@ -11,7 +11,7 @@ import pandas as pd
 from dask import delayed
 
 HOME = os.environ["HOME"]
-INTAKE_CMIP5_DIR = f"{HOME}/.intake_cmip5"
+INTAKE_CMIP_DIR = f"{HOME}/.intake_cmip"
 
 
 @functools.lru_cache(maxsize=1024, typed=False)
@@ -131,16 +131,19 @@ def _persist_database(df, path):
     )
 
     if path:
-        INTAKE_CMIP5_DIR = path
+        INTAKE_CMIP_DIR = path
 
-    print(f"**** Persisting CMIP5 database in {INTAKE_CMIP5_DIR} ****")
+    DB_FILE_PATH = f"{INTAKE_CMIP_DIR}/cmip5.csv"
+    RAW_DB_FILE_PATH = f"{INTAKE_CMIP_DIR}/raw_cmip5.csv"
 
-    if os.path.isdir(INTAKE_CMIP5_DIR):
-        shutil.rmtree(INTAKE_CMIP5_DIR)
-    os.makedirs(INTAKE_CMIP5_DIR, exist_ok=True)
+    print(f"**** Persisting CMIP5 database: {DB_FILE_PATH} ****")
 
-    sorted_df.to_csv(f"{INTAKE_CMIP5_DIR}/clean_cmip5_database.csv", index=False)
-    df.to_csv(f"{INTAKE_CMIP5_DIR}/raw_cmip5_database.csv", index=False)
+    if os.path.isdir(INTAKE_CMIP_DIR):
+        shutil.rmtree(INTAKE_CMIP_DIR)
+    os.makedirs(INTAKE_CMIP_DIR, exist_ok=True)
+
+    sorted_df.to_csv(DB_FILE_PATH, index=False)
+    df.to_csv(RAW_DB_FILE_PATH, index=False)
 
     return sorted_df
 
@@ -151,12 +154,12 @@ def create_cmip5_database(root_dir=None, db_path=None):
     Parameters
     ----------
 
-    root_dir : string or file handle, default None
-               File path or object
+    root_dir : string or directory handle, default None
+               Directory path for CMIP5 root directory.
 
     db_path : string or file handle, default None
-              File path or object,
-              # TODO: if None is provided the result is returned as a string.
+              Directory path where the generated database will be saved. If
+              None, the database in persisted under the home directory.
 
     Raises
     ------
