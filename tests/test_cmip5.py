@@ -79,6 +79,9 @@ def test_source():
     )
     assert isinstance(source, CMIP5DataSource)
 
-    ds = source.to_dask()
+    ds = source.to_xarray()  # Test the alias method
+    ds_2 = source.to_dask()
     assert isinstance(ds, xr.Dataset)
+    assert isinstance(ds_2, xr.Dataset)
+
     teardown()

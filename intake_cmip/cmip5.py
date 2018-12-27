@@ -89,6 +89,7 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         self.varname = varname
         self.urlpath = ""
         self._ds = None
+        self.to_xarray = self.to_dask  # Create an alias method for to_dask()
         super(CMIP5DataSource, self).__init__(metadata=metadata)
 
     def _read_database(self, database_file):
