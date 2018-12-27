@@ -8,6 +8,11 @@ workflows:
       - "deploy-conda":
           requires:
             - "python-3.6"
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
 
 
 jobs:

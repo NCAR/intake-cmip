@@ -10,8 +10,8 @@ fi
 export UPLOADFILE=`conda build conda/ --output`
 echo "UPLOADFILE = ${UPLOADFILE}"
 
-echo "[Uploading esmalb]"
-# anaconda -t ${CONDA_UPLOAD_TOKEN} upload -u cisl-iowa --force ${UPLOADFILE}
+echo "[Uploading intake-cmip]"
+anaconda -t ${CONDA_UPLOAD_TOKEN} upload -u cisl-iowa --force ${UPLOADFILE}
 echo "Successfully deployed to Anaconda.org."
 
 exit 0
