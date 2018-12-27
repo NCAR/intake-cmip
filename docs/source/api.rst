@@ -11,4 +11,4 @@ This is a reference API class listing, and modules.
 .. autofunction:: create_cmip5_database
 
 .. autoclass:: intake_cmip.cmip5.CMIP5DataSource
-   :members: __init__
+   :members: __init__, to_xarray
