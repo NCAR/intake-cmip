@@ -70,7 +70,7 @@ def test_source():
     create_cmip5_database(CMIP5_TEST_DIR, DB_DIR)
     db_file = f"{DB_DIR}/cmip5.csv"
     source = CMIP5DataSource(
-        database_file=db_file,
+        database=db_file,
         model="CanESM2",
         experiment="rcp85",
         frequency="mon",
@@ -85,3 +85,17 @@ def test_source():
     assert isinstance(ds, xr.Dataset)
     assert isinstance(ds_2, xr.Dataset)
     teardown()
+
+
+def test_glade_db():
+    source = CMIP5DataSource(
+        database="glade",
+        model="CanESM2",
+        experiment="rcp85",
+        frequency="mon",
+        realm="atmos",
+        ensemble="r2i1p1",
+        varname="ua",
+    )
+
+    assert isinstance(source, CMIP5DataSource)

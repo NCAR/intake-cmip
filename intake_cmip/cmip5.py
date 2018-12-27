@@ -8,6 +8,7 @@ import pandas as pd
 import xarray as xr
 
 from ._version import get_versions
+from .config import glade_cmip5_db
 
 __version__ = get_versions()["version"]
 del get_versions
@@ -25,7 +26,7 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
 
     def __init__(
         self,
-        database_file,
+        database,
         model,
         experiment,
         frequency,
@@ -39,7 +40,7 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         Parameters
         ----------
 
-        database_file : string or file handle
+        database : string or file handle
              File path or object for cmip5 database
         model : str
               identifies the model used (e.g. HADCM3, HADCM3-233).
@@ -80,7 +81,7 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         """
 
         # store important kwargs
-        self.database = self._read_database(database_file)
+        self.database = self._read_database(database)
         self.model = model
         self.experiment = experiment
         self.frequency = frequency
@@ -91,11 +92,13 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         self._ds = None
         super(CMIP5DataSource, self).__init__(metadata=metadata)
 
-    def _read_database(self, database_file):
-        if os.path.exists(database_file):
-            return pd.read_csv(database_file)
+    def _read_database(self, database):
+        if database == "glade":
+            database = glade_cmip5_db
+        if os.path.exists(database):
+            return pd.read_csv(database)
         else:
-            raise FileNotFoundError(f"{database_file}")
+            raise FileNotFoundError(f"{database}")
 
     def _open_dataset(self):
         ens_filepaths = get_ens_filepaths(
