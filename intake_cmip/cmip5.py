@@ -41,7 +41,8 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         ----------
 
         database : string or file handle
-             File path or object for cmip5 database
+             File path or object for cmip5 database. For users with access to
+             NCAR's glade file system, this argument can be set to 'glade'.
         model : str
               identifies the model used (e.g. HADCM3, HADCM3-233).
         experiment : str
