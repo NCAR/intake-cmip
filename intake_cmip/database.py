@@ -116,7 +116,7 @@ def _parse_directory(directory):
     return df
 
 
-def _persist_database(df, path):
+def _persist_database(df, INTAKE_CMIP_DIR=INTAKE_CMIP_DIR, path=None):
     vYYYYMMDD = (
         r"v\d{4}\d{2}\d{2}"
     )  # TODO: Very dangerous in case the root dir matches the pattern
@@ -157,7 +157,7 @@ def create_cmip5_database(root_dir=None, db_path=None):
     root_dir : string or directory handle, default None
                Directory path for CMIP5 root directory.
 
-    db_path : string or file handle, default None
+    db_path : string or directory handle, default None
               Directory path where the generated database will be saved. If
               None, the database in persisted under the home directory.
 
@@ -178,5 +178,5 @@ def create_cmip5_database(root_dir=None, db_path=None):
     dirs = _parse_dirs(root_dir)
     dfs = [_parse_directory(directory) for directory in dirs]
     df = dd.from_delayed(dfs).compute()
-    df = _persist_database(df, db_path)
+    df = _persist_database(df=df, path=db_path)
     return df
