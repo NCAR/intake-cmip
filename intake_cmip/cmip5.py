@@ -32,7 +32,7 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         frequency,
         realm,
         ensemble,
-        varname,
+        varname=None,
         metadata=None,
     ):
         """
@@ -77,7 +77,8 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
             (r<N>i<M>p<L>): This triad of integers (N, M, L), formatted as (e.g., “r3i1p21”)
             distinguishes among closely related simulations by a single model.
             All three are required even if only a single simulation is performed.
-        varname : str
+        varname : str, optional
+             Variable name according to CMIP Data Reference Syntax (DRS)
 
         """
 

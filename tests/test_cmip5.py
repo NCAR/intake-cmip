@@ -76,7 +76,6 @@ def test_source():
         frequency="mon",
         realm="atmos",
         ensemble="r2i1p1",
-        varname="Tair",
     )
     assert isinstance(source, CMIP5DataSource)
 
