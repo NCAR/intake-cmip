@@ -2,6 +2,7 @@ import os
 import shutil
 import tempfile
 
+import dask
 import pandas as pd
 import pytest
 import xarray as xr
@@ -79,9 +80,8 @@ def test_source():
     )
     assert isinstance(source, CMIP5DataSource)
 
-    ds = source.to_xarray()  # Test the alias method
-    ds_2 = source.to_dask()
+    ds = source.to_xarray()
+    ds_2 = source.to_xarray(dask=False)
     assert isinstance(ds, xr.Dataset)
     assert isinstance(ds_2, xr.Dataset)
-
     teardown()

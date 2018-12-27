@@ -89,7 +89,6 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         self.varname = varname
         self.urlpath = ""
         self._ds = None
-        self.to_xarray = self.to_dask  # Create an alias method for to_dask()
         super(CMIP5DataSource, self).__init__(metadata=metadata)
 
     def _read_database(self, database_file):
@@ -113,6 +112,12 @@ class CMIP5DataSource(intake_xarray.base.DataSourceMixin):
         ens_list = list(ens_filepaths.keys())
         self._ds = xr.concat(ds_list, dim="ensemble")
         self._ds["ensemble"] = ens_list
+
+    def to_xarray(self, dask=True):
+        """Return dataset as an xarray instance"""
+        if dask:
+            return self.to_dask()
+        return self.read()
 
 
 def get_ens_filepaths(database, model, experiment, frequency, realm, ensemble, varname):
