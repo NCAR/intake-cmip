@@ -11,7 +11,7 @@ source:
   
 
 build: 
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
   noarch: python
   number: 0
 
@@ -22,7 +22,9 @@ requirements:
 
   run:
     - python
+    - netcdf4
     - xarray
+    - intake
     - intake-xarray
     - dask
 
@@ -39,7 +41,7 @@ test:
 about:
   
   home: https://github.com/NCAR/intake-cmip
-  license: Apache-2.0
+  license: Apache 2.0
   license_file: LICENSE
   summary: |
     Intake-cmip provides a plugin for reading CMIP5, and CMIP6 data using intake. 
