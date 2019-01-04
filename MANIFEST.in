@@ -1,1 +1,10 @@
-recursive-include . *.yaml
+recursive-include intake_cmip *.py
+recursive-include intake_cmip *.csv
+
+include LICENSE
+include README.rst
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+include versioneer.py
+include intake_cmip/_version.py
