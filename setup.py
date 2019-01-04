@@ -20,6 +20,7 @@ setup(
     maintainer="Anderson Banihirwe",
     maintainer_email="abanihi@ucar.edu",
     description="An intake plugin for loading CMIP5, CMIP6 data sets",
+    python_requires=">3.5",
     install_requires=install_requires,
     license="Apache License 2.0",
     long_description=long_description,
