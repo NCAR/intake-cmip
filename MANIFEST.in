@@ -3,6 +3,7 @@ recursive-include intake_cmip *.csv
 
 include LICENSE
 include README.rst
+include requirements.txt
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
