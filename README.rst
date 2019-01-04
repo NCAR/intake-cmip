@@ -1,7 +1,7 @@
 Intake-cmip
 =============
 
-.. image:: https://img.shields.io/circleci/project/github/NCAR/intake-cmip/master.svg?style=for-the-badge
+.. image:: https://img.shields.io/circleci/project/github/NCAR/intake-cmip/master.svg?style=for-the-badge&logo=circleci
     :target: https://circleci.com/gh/NCAR/intake-cmip/tree/master
 
 .. image:: https://img.shields.io/codecov/c/github/NCAR/intake-cmip.svg?style=for-the-badge
