@@ -16,6 +16,11 @@ Intake-cmip
     :target: https://pypi.org/project/intake-cmip/
     :alt: Python Package Index
     
+.. image:: https://img.shields.io/conda/vn/conda-forge/intake-cmip.svg?style=for-the-badge
+    :target: https://anaconda.org/conda-forge/intake-cmip
+    :alt: Conda Version
+
+
 Intake-cmip provides a plugin for reading CMIP5, and CMIP6 data using intake_.
 See documentation_ for more information.
 
