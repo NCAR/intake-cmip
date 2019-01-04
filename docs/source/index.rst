@@ -3,7 +3,8 @@
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
+   installing
    notebooks/overview.ipynb
    notebooks/GLADE-cmip5_database.ipynb
    api
