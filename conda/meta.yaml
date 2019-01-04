@@ -1,13 +1,13 @@
 {% set name = "intake-cmip" %}
-{% set version = "0.0.1" %}
+{% set version = "2019.1.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/NCAR/intake-cmip/archive/v{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 711ec3d30f784268065d73b95e16538f6584fa1dcb1f4fba64c1337ac61247fb
   
 
 build: 
@@ -17,8 +17,10 @@ build:
 
 requirements:
 
-  build:
+  host:
     - python
+    - pip
+
 
   run:
     - python
