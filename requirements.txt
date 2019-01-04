@@ -1,0 +1,2 @@
+intake
+git+git://github.com/ContinuumIO/intake-xarray@master#egg=intake-xarray

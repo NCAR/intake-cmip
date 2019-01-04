@@ -6,21 +6,28 @@ from setuptools import setup, find_packages
 import versioneer
 from os.path import exists
 
-readme = open("README.rst").read() if exists("README.rst") else ""
+with open("requirements.txt") as f:
+    install_requires = f.read().strip().split("\n")
 
-requirements = ["intake", "intake-xarray"]
+if exists("README.rst"):
+    with open("README.rst") as f:
+        long_description = f.read()
+else:
+    long_description = ""
+
 
 setup(
     maintainer="Anderson Banihirwe",
     maintainer_email="abanihi@ucar.edu",
     description="An intake plugin for loading CMIP5, CMIP6 data sets",
-    install_requires=requirements,
+    install_requires=install_requires,
     license="Apache License 2.0",
-    long_description=readme,
+    long_description=long_description,
     keywords=["cmip5", "cmip6" "intake"],
     name="intake-cmip",
     packages=find_packages(),
     py_modules=["intake_cmip"],
+    package_data={"": ["*.csv"]},
     include_package_data=True,
     url="https://github.com/NCAR/intake-cmip",
     version=versioneer.get_version(),
