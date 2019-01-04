@@ -12,6 +12,10 @@ Intake-cmip
     :target: https://intake-cmip.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
+.. image:: https://img.shields.io/pypi/v/intake-cmip.svg?style=for-the-badge
+    :target: https://pypi.org/project/intake-cmip/
+    :alt: Python Package Index
+    
 Intake-cmip provides a plugin for reading CMIP5, and CMIP6 data using intake_.
 See documentation_ for more information.
 
