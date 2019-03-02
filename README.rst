@@ -1,3 +1,10 @@
+**Status**
+
+**NOTE**: As of March 2019, continued development of `intake-cmip` will be taking place as part of the `intake-esm` project: 
+https://github.com/NCAR/intake-esm. This repo will be archived soon. 
+
+
+
 Intake-cmip
 =============
 
